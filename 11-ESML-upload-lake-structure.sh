@@ -17,8 +17,8 @@ else
 fi
 
 ################ EDIT THIS #################
-aiFactorySalt="tky7y" # Your unique salt for AIFactory, look at a resource such as keyvault, to find the 5 characters.
 env="dev"
+aiFactorySalt="$LAKE_PREFIX" # Set this in your .env file:  Your unique salt for AIFactory, look at a resource such as keyvault, to find the 5 characters.
 ############################ DO NOT EDIT BELOW
 
 # DIRECTORIES
@@ -49,7 +49,8 @@ echo -e "${GREEN}UNZIP_DIR: $UNZIP_DIR ${NC}"
 # Unzip the folder
 unzip "$ZIP_FILE" -d "$UNZIP_DIR"
 
-# Upload the folder structure and content to Azure Storage
-az storage blob upload-batch -d "$CONTAINER_NAME" --account-name "$STORAGE_ACCOUNT_NAME" -s "$UNZIP_DIR" --sas-token "sp=racwdlmeop&st=2025-02-10T15:38:32Z&se=2025-03-31T22:38:32Z&spr=https&sv=2022-11-02&sr=c&sig=YOaYTtavtk9OQuSyQMYuiewBSNd3l7nuWerIGbHhTYw%3D"
+# Upload the folder structure and content to Azure Storage:  requires az login
+az storage blob upload-batch -d "$CONTAINER_NAME" --account-name "$STORAGE_ACCOUNT_NAME" -s "$UNZIP_DIR" --auth-mode login
+# az storage blob upload-batch -d "$CONTAINER_NAME" --account-name "$STORAGE_ACCOUNT_NAME" -s "$UNZIP_DIR" --sas-token "<TODO>"
 
 echo -e "${GREEN}Upload complete! ${NC}"
