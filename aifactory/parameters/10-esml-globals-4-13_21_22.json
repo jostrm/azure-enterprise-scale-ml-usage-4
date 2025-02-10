@@ -12,7 +12,7 @@
             "value": true
         },
         "addBastionHost":{
-            "value": true
+            "value": false
         },
         "lakeContainerName":{
 			"value": "lake3"
@@ -33,7 +33,7 @@
             "value": ""
         },
         "tenantId": {
-            "value": "todo_guid"
+            "value": "d06d9bae-d2c3-48a1-a76f-05221564d208"
         }
     }
 }
