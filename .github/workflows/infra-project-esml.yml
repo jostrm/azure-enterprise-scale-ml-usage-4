@@ -71,14 +71,10 @@ env:
     admin_private_DatabricksUI: false # Private Databricks UI
 jobs:
   job1-deploy-networking-project-esml:
-    name: ESML_Networking
+    name: ESML_Private_Networking
     if: ${{ vars.RUN_JOB1_NETWORKING }} == 'true'
     environment: ${{github.event.inputs.environment}}
     runs-on: ubuntu-latest
-    #defaults:
-      #run:
-        #shell: pwsh
-        #working-directory: "${{ github.workspace }}/azure-enterprise-scale-ml/environment_setup/aifactory/bicep/scripts/"
     steps:
     - name: Print Skip NETWORKING variable
       run: |
@@ -153,7 +149,6 @@ jobs:
       if: env.ENABLE_NETWORKING_JOB  != 'false'
       uses: azure/cli@v2
       with: 
-        #working-directory: "${{ github.workspace }}/azure-enterprise-scale-ml/environment_setup/aifactory/bicep/"
         inlineScript: |
           echo "Deploying subnets and NSG to subscription: ${{ env.dev_test_prod_sub_id }}"
           az deployment group create \
@@ -165,7 +160,7 @@ jobs:
           --parameters @"./aifactory/parameters/10-esml-globals-1.json" \
           --parameters @"./aifactory/parameters/10-esml-globals-override.json" \
           --parameters env="${{ env.dev_test_prod }}" \
-          --parameters projectNumber="${{ env.project_number_000 }}"
+          --parameters projectNumber="${{ env.project_number_000 }}" \
           --parameters location="${{ env.admin_location}}" \
           --parameters locationSuffix="${{ env.admin_locationSuffix }}"
         azcliversion: latest
@@ -185,7 +180,6 @@ jobs:
       defaults:
         run:
           shell: pwsh
-          #working-directory: "${{ github.workspace }}/azure-enterprise-scale-ml/environment_setup/aifactory/bicep/scripts/"
       steps:
       - name: Print info
         run: |

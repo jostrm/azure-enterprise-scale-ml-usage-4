@@ -72,7 +72,7 @@ env:
     admin_private_DatabricksUI: false # Private Databricks UI
 jobs:
   job1-deploy-networking-project-genai:
-    name: ESGenAI_Networking
+    name: ESGenAI_Private_Networking
     environment: ${{github.event.inputs.environment}}
     runs-on: ubuntu-latest
     if: vars.RUN_JOB1_NETWORKING != 'false'
@@ -175,7 +175,7 @@ jobs:
           --parameters @"./aifactory/parameters/10-esml-globals-1.json" \
           --parameters @"./aifactory/parameters/10-esml-globals-override.json" \
           --parameters env="${{ env.dev_test_prod }}" \
-          --parameters projectNumber="${{ env.project_number_000 }}"
+          --parameters projectNumber="${{ env.project_number_000 }}" \
           --parameters location="${{ env.admin_location}}" \
           --parameters locationSuffix="${{ env.admin_locationSuffix }}"
         azcliversion: latest
